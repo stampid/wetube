@@ -5,9 +5,6 @@ module.exports = {
     node: true
   },
   extends: ["airbnb-base", "prettier"],
-  rules: {
-    "no-console": "off"
-  },
   globals: {
     Atomics: "readonly",
     SharedArrayBuffer: "readonly"
@@ -16,5 +13,7 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: "module"
   },
-  rules: {}
+  rules: {
+    "no-console": "off"
+  }
 };
