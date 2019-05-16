@@ -1,4 +1,4 @@
-videoPlayer {
+.videoPlayer {
   position: relative;
   &:hover {
     .videoPlayer__controls {
@@ -6,6 +6,7 @@ videoPlayer {
     }
   }
   video {
+    width: 100%;
     max-width: 100%;
   }
   .videoPlayer__controls {
