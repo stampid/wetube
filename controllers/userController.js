@@ -44,8 +44,11 @@ export const githubLoginCallback = (accessToken, refreshToken, profile, cb) => {
 
 export const githubLogin = passport.authenticate("github");
 
+export const postGithubLogIn = (req, res) => {
+  res.send(routes.home);
+};
+
 export const logout = (req, res) => {
-  // To Do: Process Log Out
   req.logout();
   res.redirect(routes.home);
 };
