@@ -36,7 +36,6 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
-console.log("미들웨어 실행전");
 app.use(localsMiddleware);
 
 app.use(routes.home, globalRouter);

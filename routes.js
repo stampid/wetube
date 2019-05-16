@@ -38,7 +38,6 @@ const routes = {
   search: SEARCH,
   users: USERS,
   userDetail: id => {
-    console.log("id : ", id);
     if (id) {
       return `/users/${id}`;
     }
@@ -56,7 +55,6 @@ const routes = {
   },
   editVideo: id => {
     if (id) {
-      console.log(id);
       return `/videos/${id}/edit`;
     }
     return EDIT_VIDEO;
