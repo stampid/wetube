@@ -1,6 +1,7 @@
 import passport from "passport";
 import routes from "../routes";
 import User from "../models/User";
+import { RSA_NO_PADDING } from "constants";
 
 export const getJoin = (req, res) => {
   res.render("join", { pageTitle: "Join" });
@@ -14,7 +15,6 @@ export const postJoin = async (req, res, next) => {
     res.status(400);
     res.render("join", { pageTitle: "Join" });
   } else {
-    // To Do : Register User
     try {
       const user = await User({
         name,
@@ -23,6 +23,7 @@ export const postJoin = async (req, res, next) => {
       await User.register(user, password);
       next();
     } catch (error) {
+      console.log(error);
       res.redirect(routes.home);
     }
   }
@@ -36,10 +37,13 @@ export const postLogin = passport.authenticate("local", {
   successRedirect: routes.home
 });
 
+export const githubLogin = passport.authenticate("github");
+
 export const githubLoginCallback = async (_, __, profile, cb) => {
   const {
     _json: { id, avatar_url: avatarUrl, name, email }
   } = profile;
+  console.log("email : ", email);
   try {
     const user = await User.findOne({ email });
     if (user) {
@@ -58,8 +62,6 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
     return cb(error);
   }
 };
-
-export const githubLogin = passport.authenticate("github");
 
 export const postGithubLogIn = (req, res) => {
   res.redirect(routes.home);
@@ -118,6 +120,23 @@ export const userDetail = async (req, res) => {
 
 export const getEditProfile = (req, res) =>
   res.render("editProfile", { pageTitle: "Edit Profile" });
+
+export const postEditProfile = async (req, res) => {
+  const {
+    body: { name, email },
+    file
+  } = req;
+  try {
+    await User.findByIdAndUpdate(req.user.id, {
+      name,
+      email,
+      avatarUrl: file ? file.path : req.user.avatarUrl
+    });
+    res.redirect(routes.me);
+  } catch (error) {
+    res.render("editProfile", { pageTitle: "Edit Profile" });
+  }
+};
 
 export const changePassword = (req, res) =>
   res.render("changePassword", { pageTitle: "Change Password" });
