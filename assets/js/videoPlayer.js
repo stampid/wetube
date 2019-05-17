@@ -116,6 +116,5 @@ function init() {
 }
 
 if (videoContainer) {
-  videoPlayer.currentTime = 30;
   init();
 }

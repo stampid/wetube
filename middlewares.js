@@ -21,6 +21,7 @@ export const onlyPublic = (req, res, next) => {
 
 export const onlyPrivate = (req, res, next) => {
   if (req.user) {
+    console.log("미들웨어 확인");
     next();
   } else {
     res.redirect(routes.home);
