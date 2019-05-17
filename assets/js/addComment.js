@@ -1,6 +1,15 @@
 import axios from "axios";
 
 const addCommentForm = document.getElementById("jsAddComment");
+const commentlist = document.getElementById("#jsCommentList");
+
+const addComment = comment => {
+  const li = document.createElement("li");
+  const span = document.createElement("span");
+  span.innerHTML = comment;
+  li.appendChild(span);
+  commentlist.prepend(li);
+};
 
 const sendComment = async comment => {
   const videoId = window.location.href.split("/videos/")[1];
@@ -11,7 +20,6 @@ const sendComment = async comment => {
       comment
     }
   });
-  console.log(response);
 };
 
 const handleSubmit = event => {
